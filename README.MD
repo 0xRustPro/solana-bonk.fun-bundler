@@ -1,20 +1,20 @@
 # 🐶 Bonk.fun Multi-Wallet Bundle Trading Bot
 
-A high-performance MEV bot built for Solana, optimized to trade $BONK via **Raydium v2** using **Jito bundles** with support for dynamic multi-wallet execution.
+A fast and reliable Solana bundle trading bot for **bonkfun** and **bonk.fun**-style token launches. This bot uses **Jito bundles** to create tokens and execute **multi-wallet buys in a single atomic block**. Built with **Raydium SDK v2**, it's designed for seamless one-block execution and fast inclusion.
 
 ## 🚀 Features
 
-- ✅ Supports **flexible multi-wallet bundling** (12+ wallets)
-- ✅ Uses **Jito** relayer for atomic bundle submission
+- ✅ Supports **dynamic multi-wallet bundling** (2, 5, 9, 12+ wallets)
+- ✅ Atomically creates tokens and buys from multiple wallets in **one block**
+- ✅ Uses **Jito** relayer for secure and efficient bundle submission
 - ✅ Executes trades via **Raydium SDK v2**
-- ✅ Dynamically constructs high-throughput parallel bundles
-- ✅ Configurable compute unit pricing for priority inclusion
+- ✅ Optimized for priority compute unit pricing
 
 ---
 
 ## 📸 Sample Bundles on Jito Explorer
 
-These are **just examples** — the bot supports any number of wallets:
+These are just examples — the bot supports **any number of wallets**:
 
 | Wallet Count | Jito Bundle                                                                                                  |
 | ------------ | ------------------------------------------------------------------------------------------------------------ |
@@ -26,10 +26,10 @@ These are **just examples** — the bot supports any number of wallets:
 
 ## ⚙️ How It Works
 
-1. Detects profitable arbitrage opportunities on **Raydium**
-2. Constructs multiple swap transactions across separate wallets
-3. Packages them into a **single atomic bundle** using Jito
-4. Submits with priority settings for faster inclusion
+1. Creates a new token (like BONK)
+2. Prepares swap transactions from multiple wallets
+3. Wraps them into a **single atomic bundle** using Jito
+4. Submits the bundle for inclusion in the same block
 
 ---
 
@@ -38,32 +38,32 @@ These are **just examples** — the bot supports any number of wallets:
 - [Solana Web3.js](https://solana-labs.github.io/solana-web3.js/)
 - [Raydium SDK v2](https://github.com/raydium-io/raydium-sdk)
 - [Jito-Solana](https://jito.network/)
-- Custom multi-wallet bundler logic
+- Custom bundler and transaction coordinator
 
 ---
 
 ## ⚡ Performance Tuning
 
-Configure compute priority for inclusion in high-load conditions:
+Boost confirmation speed by adjusting compute unit pricing:
 
 ```ts
-ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 200_000 }); // High speed
+ComputeBudgetProgram.setComputeUnitPrice({ microLamports: 200_000 }); // High priority
 ```
 
-Use higher microLamports for faster confirmation, or lower values for cheaper runs.
+Use higher values during congestion, or lower for savings.
 
 ---
 
 ## 🧪 Planned Features
 
-- Auto-retry bundles during congestion
-- Live dashboard for monitoring bundle results
-- Strategy plugin support (sandwich, backrun, etc.)
-- Telegram/Discord notifications
+- Auto-retry on bundle failure
+- Live bundle result dashboard
+- Strategy modules for flexible launch styles
+- Telegram / Discord alerts
 
 ---
 
-## 📞 Contact Info
+## 📬 Contact
 
 For MEV bot customization, consulting, or private collaboration:
 **Open an issue** or reach out via Discord/Telegram (on request).
