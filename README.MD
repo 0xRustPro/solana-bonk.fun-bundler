@@ -4,7 +4,7 @@ A fast and reliable Solana bundle trading bot for **bonkfun** and **bonk.fun**-s
 
 ## 🚀 Features
 
-- ✅ Supports **dynamic multi-wallet bundling** (2, 5, 9, 12+ wallets)
+- ✅ Supports **dynamic multi-wallet bundling** (12+ wallets)
 - ✅ Atomically creates tokens and buys from multiple wallets in **one block**
 - ✅ Uses **Jito** relayer for secure and efficient bundle submission
 - ✅ Executes trades via **Raydium SDK v2**
