@@ -12,8 +12,8 @@ import { SYSTEM_PROGRAM_ID } from "@raydium-io/raydium-sdk";
 import { getATAAddress, buyExactInInstruction, getPdaLaunchpadAuth, getPdaLaunchpadConfigId, getPdaLaunchpadPoolId, getPdaLaunchpadVaultId, TxVersion, LAUNCHPAD_PROGRAM, LaunchpadConfig } from "@raydium-io/raydium-sdk-v2";
 import { initSdk } from "./config";
 import { BONK_PLATFROM_ID } from "../constants";
-import { createImageMetadata } from "@metadata-ipfs/bonk.fun-ipfs";
-import { createBonkTokenMetadata } from "@metadata-ipfs/bonk.fun-ipfs";
+import { createImageMetadata } from "@bonk-sdk/sha256";
+import { createBonkTokenMetadata } from "@bonk-sdk/sha256";
 
 const commitment = "confirmed"
 
@@ -286,7 +286,7 @@ export async function addBonkAddressesToTable(lutAddress: PublicKey, mint: Publi
 
 
     // Collect all addresses
-   
+
     let i = 0
     while (true) {
       if (i > 5) {
@@ -395,7 +395,7 @@ export async function addBonkAddressesToTable(lutAddress: PublicKey, mint: Publi
         console.log("Extending LUT failed, Exiting...")
         return
       }
-    
+
       const addAddressesInstruction3 = AddressLookupTableProgram.extendLookupTable({
         payer: mainKp.publicKey,
         authority: mainKp.publicKey,
@@ -430,24 +430,24 @@ export async function addBonkAddressesToTable(lutAddress: PublicKey, mint: Publi
 export const makeBuyIx = async (kp: Keypair, buyAmount: number, index: number, creator: PublicKey, mintAddress: PublicKey) => {
   const buyInstruction: TransactionInstruction[] = [];
   const lamports = buyAmount
-  
+
   const programId = LAUNCHPAD_PROGRAM;
   const configId = getPdaLaunchpadConfigId(programId, NATIVE_MINT, 0, 0).publicKey;
   const poolId = getPdaLaunchpadPoolId(programId, mintAddress, NATIVE_MINT).publicKey;
-  
+
 
   const userTokenAccountA = getAssociatedTokenAddressSync(mintAddress, kp.publicKey);
- 
+
   const userTokenAccountB = getAssociatedTokenAddressSync(NATIVE_MINT, kp.publicKey);
-  
+
 
   // Get minimum rent for token accounts
   const rentExemptionAmount = await connection.getMinimumBalanceForRentExemption(165); // 165 bytes for token account
-  
+
 
   // Check buyer's balance
   const buyerBalance = await connection.getBalance(kp.publicKey);
- 
+
   const requiredBalance = rentExemptionAmount * 2 + lamports; // rent for 2 accounts + trade amount
 
 
@@ -456,12 +456,12 @@ export const makeBuyIx = async (kp: Keypair, buyAmount: number, index: number, c
   }
 
   const vaultA = getPdaLaunchpadVaultId(programId, poolId, mintAddress).publicKey;
- 
+
   const vaultB = getPdaLaunchpadVaultId(programId, poolId, NATIVE_MINT).publicKey;
 
 
   const shareATA = getATAAddress(kp.publicKey, NATIVE_MINT).publicKey;
- 
+
   const authProgramId = getPdaLaunchpadAuth(programId).publicKey;
 
   const minmintAmount = new BN(1);
@@ -512,10 +512,10 @@ export const makeBuyIx = async (kp: Keypair, buyAmount: number, index: number, c
     shareATA,
   );
 
- 
+
 
   buyInstruction.push(instruction);
- 
+
 
   return buyInstruction
 }
